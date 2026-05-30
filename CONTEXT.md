@@ -15,6 +15,12 @@ sponsored listings. Simple, fast, complete.
 - [x] Seed data: 8 categories, 8 tools added
 - [x] Supabase client created at app/lib/supabase.ts
 - [x] .env.local configured
+- [x] Homepage built (hero, categories, featured tools, footer)
+- [x] Navbar and Footer components created
+- [x] app/components/Navbar.tsx
+- [x] app/components/Footer.tsx
+- [x] app/page.tsx (homepage)
+- [x] app/globals.css (dark theme)
 
 ## File Structure So Far:
 
