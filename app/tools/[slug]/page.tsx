@@ -1,47 +1,7 @@
 import Link from 'next/link'
 import { supabase } from '../../lib/supabase'
 import { notFound } from 'next/navigation'
-import type { Metadata } from 'next'
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string }
-}): Promise<Metadata> {
-  const { createClient } = await import('@supabase/supabase-js')
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
-  const { data: tool } = await supabase
-    .from('tools')
-    .select('*')
-    .eq('slug', params.slug)
-    .single()
-
-  if (!tool) {
-    return {
-      title: 'Tool Not Found',
-    }
-  }
-
-  return {
-    title: `${tool.name} - ${tool.tagline}`,
-    description: tool.description || tool.tagline,
-    keywords: tool.tags || [],
-    openGraph: {
-      title: `${tool.name} - ${tool.tagline}`,
-      description: tool.description || tool.tagline,
-      type: 'website',
-      url: `https://your-site.vercel.app/tools/${tool.slug}`,
-    },
-    twitter: {
-      card: 'summary',
-      title: `${tool.name} - ${tool.tagline}`,
-      description: tool.description || tool.tagline,
-    },
-  }
-}
 
 async function getTool(slug: string) {
   const { data } = await supabase
@@ -65,17 +25,17 @@ async function getRelatedTools(categoryId: string, currentSlug: string) {
 export default async function ToolDetailPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
-  const tool = await getTool(params.slug)
+  const { slug } = await params
+  const tool = await getTool(slug)
 
   if (!tool) {
     notFound()
   }
-
-  const relatedTools = tool.category_id
-    ? await getRelatedTools(tool.category_id, params.slug)
-    : []
+const relatedTools = tool.category_id
+  ? await getRelatedTools(tool.category_id, slug)
+  : []
 
   return (
     <main className="min-h-screen px-4 py-12 max-w-4xl mx-auto">
