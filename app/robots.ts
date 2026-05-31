@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/admin/',
     },
-    sitemap: 'https://your-site.vercel.app/sitemap.xml',
+    sitemap: 'https://aishelve.vercel.app/sitemap.xml',
   }
 }
