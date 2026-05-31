@@ -176,12 +176,12 @@ export default async function CategoryPage({
                   {/* Buttons */}
                   <div className="flex gap-2 mt-auto">
                     <Link
-                      href={tool.affiliate_url || tool.url}
-                      target="_blank"
-                      className="flex-1 text-center bg-purple-600/20 hover:bg-purple-600 border border-purple-500/30 hover:border-purple-500 text-purple-300 hover:text-white py-2 rounded-lg text-sm font-medium transition"
-                    >
-                      Visit →
-                    </Link>
+  href={`/api/click/${tool.id}`}
+  target="_blank"
+  className="flex-1 text-center bg-purple-600/20 hover:bg-purple-600 border border-purple-500/30 hover:border-purple-500 text-purple-300 hover:text-white py-2 rounded-lg text-sm font-medium transition"
+>
+  Visit →
+</Link>
                     <Link
                       href={`/tools/${tool.slug}`}
                       className="flex-1 text-center bg-white/5 hover:bg-white/10 border border-white/10 text-gray-400 hover:text-white py-2 rounded-lg text-sm font-medium transition"

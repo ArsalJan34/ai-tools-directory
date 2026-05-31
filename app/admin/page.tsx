@@ -95,6 +95,38 @@ export default async function AdminDashboard() {
           </div>
         )}
       </div>
+      {/* Top Clicked Tools */}
+      <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mt-8">
+        <h2 className="text-xl font-bold text-white mb-6">
+          How Clicks Work
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+            <div className="text-3xl mb-3">🔗</div>
+            <p className="text-white font-medium mb-2">Affiliate Links</p>
+            <p className="text-gray-400 text-sm">
+              Every Visit button goes through your tracking route first then
+              redirects to the affiliate URL you set for that tool.
+            </p>
+          </div>
+          <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+            <div className="text-3xl mb-3">📊</div>
+            <p className="text-white font-medium mb-2">Click Tracking</p>
+            <p className="text-gray-400 text-sm">
+              Every click is saved in your clicks table in Supabase. You can
+              view all clicks in the Supabase dashboard under Table Editor.
+            </p>
+          </div>
+          <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+            <div className="text-3xl mb-3">💰</div>
+            <p className="text-white font-medium mb-2">Earning Money</p>
+            <p className="text-gray-400 text-sm">
+              Sign up for affiliate programs of each tool. Replace the
+              affiliate URL in the tool with your unique affiliate link.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
