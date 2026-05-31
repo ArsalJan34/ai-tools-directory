@@ -1,6 +1,35 @@
 import Link from 'next/link'
 import { supabase } from '../../lib/supabase'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
+  const { createClient } = await import('@supabase/supabase-js')
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+  const { data: category } = await supabase
+    .from('categories')
+    .select('*')
+    .eq('slug', params.slug)
+    .single()
+
+  if (!category) {
+    return {
+      title: 'Category Not Found',
+    }
+  }
+
+  return {
+    title: `Best ${category.name} AI Tools`,
+    description: `Browse the best ${category.name} AI tools. ${category.description}. Find free and paid options.`,
+  }
+}
 
 async function getCategory(slug: string) {
   const { data } = await supabase

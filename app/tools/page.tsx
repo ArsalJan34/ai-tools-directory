@@ -1,5 +1,12 @@
 import Link from 'next/link'
 import { supabase } from '../lib/supabase'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'All AI Tools',
+  description:
+    'Browse our complete directory of AI tools. Filter by category, pricing, and more. Find the perfect AI tool for writing, coding, image generation, and more.',
+}
 
 async function getTools() {
   const { data } = await supabase
