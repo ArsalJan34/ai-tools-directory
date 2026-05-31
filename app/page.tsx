@@ -124,15 +124,14 @@ export default async function Home() {
                 ))}
               </div>
 
-              {/* Visit Button */}
-             <a
-                href={tool.affiliate_url || tool.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full text-center bg-purple-600/20 hover:bg-purple-600 border border-purple-500/30 hover:border-purple-500 text-purple-300 hover:text-white py-2 rounded-lg text-sm font-medium transition"
-              >
-                Visit Tool →
-              </a>
+             {/* Visit Button */}
+<Link
+  href={`/api/click/${tool.id}`}
+  target="_blank"
+  className="block w-full text-center bg-purple-600/20 hover:bg-purple-600 border border-purple-500/30 hover:border-purple-500 text-purple-300 hover:text-white py-2 rounded-lg text-sm font-medium transition"
+>
+  Visit Tool →
+</Link>
             </div>
           ))}
         </div>

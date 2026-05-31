@@ -108,14 +108,13 @@ export default async function ToolDetailPage({
 
           {/* Visit Button */}
           <div className="shrink-0">
-           <a
-              href={tool.affiliate_url || tool.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl font-medium transition text-center"
-            >
-              Visit Tool →
-            </a>
+           <Link
+  href={`/api/click/${tool.id}`}
+  target="_blank"
+  className="block bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl font-medium transition text-center"
+>
+  Visit Tool →
+</Link>
             <p className="text-gray-600 text-xs text-center mt-2">
               Opens in new tab
             </p>
