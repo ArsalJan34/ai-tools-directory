@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://your-site.vercel.app',
+    url: 'https://aishelve.vercel.app',
     siteName: 'AI Tools Directory',
     title: 'AI Tools Directory - Find The Best AI Tools',
     description:
@@ -55,6 +55,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="28PxnAniJ5rJ041ay4W_KUihvrHsjOhHbnVqMVv55mA"
+        />
+      </head>
       <body>
         <Navbar />
         {children}
