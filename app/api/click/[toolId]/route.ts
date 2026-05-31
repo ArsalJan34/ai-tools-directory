@@ -3,9 +3,9 @@ import { supabase } from '../../../lib/supabase'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { toolId: string } }
+  { params }: { params: Promise<{ toolId: string }> }
 ) {
-  const { toolId } = params
+  const { toolId } = await params
 
   // Get the tool from database
   const { data: tool, error } = await supabase
