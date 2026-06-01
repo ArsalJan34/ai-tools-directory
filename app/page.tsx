@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { supabase } from './lib/supabase'
+import SearchBar from './components/SearchBar'
 
 async function getFeaturedTools() {
   const { data } = await supabase
@@ -71,22 +72,7 @@ export default async function Home() {
           </p>
 
           {/* Search */}
-          <div className="flex gap-3 max-w-2xl mx-auto mb-14">
-            <div className="flex-1 relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm">🔍</span>
-              <input
-                type="text"
-                placeholder="Search 500+ AI tools..."
-                className="w-full bg-white/5 border border-white/10 hover:border-violet-500/50 focus:border-violet-500 text-white placeholder-gray-600 pl-11 pr-4 py-4 rounded-2xl focus:outline-none transition-all text-sm"
-              />
-            </div>
-            <Link
-              href="/tools"
-              className="bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 text-white px-8 py-4 rounded-2xl font-semibold transition-all shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 hover:scale-105 whitespace-nowrap text-sm"
-            >
-              Browse All →
-            </Link>
-          </div>
+          <SearchBar />
 
           {/* Stats */}
           <div className="flex flex-wrap justify-center gap-10">
@@ -142,7 +128,7 @@ export default async function Home() {
         <div className="flex items-end justify-between mb-10">
           <div>
             <p className="text-violet-400 text-xs font-bold uppercase tracking-widest mb-2">Handpicked</p>
-            <h2 className="text-3xl font-extrabold text-white"> Featured Tools</h2>
+            <h2 className="text-3xl font-extrabold text-white">⭐ Featured Tools</h2>
           </div>
           <Link href="/tools" className="text-gray-500 hover:text-white text-sm transition-colors">
             View all →
@@ -160,7 +146,7 @@ export default async function Home() {
         <div className="flex items-end justify-between mb-10">
           <div>
             <p className="text-violet-400 text-xs font-bold uppercase tracking-widest mb-2">Recently Added</p>
-            <h2 className="text-3xl font-extrabold text-white"> New Tools</h2>
+            <h2 className="text-3xl font-extrabold text-white">🆕 New Tools</h2>
           </div>
           <Link href="/tools" className="text-gray-500 hover:text-white text-sm transition-colors">
             View all →
@@ -221,10 +207,10 @@ function ToolCard({ tool }: { tool: any }) {
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
           {tool.logo_url ? (
-  <img src={tool.logo_url} alt={tool.name} className="w-11 h-11 rounded-xl object-contain bg-white p-1" />
-) : (
-  <img src={`https://www.google.com/s2/favicons?domain=${tool.url ? new URL(tool.url).hostname : 'example.com'}&sz=64`} alt={tool.name} className="w-11 h-11 rounded-xl object-cover bg-white/10" />
-)}
+            <img src={tool.logo_url} alt={tool.name} className="w-11 h-11 rounded-xl object-contain bg-white p-1" />
+          ) : (
+            <img src={`https://www.google.com/s2/favicons?domain=${tool.url ? new URL(tool.url).hostname : 'example.com'}&sz=64`} alt={tool.name} className="w-11 h-11 rounded-xl object-cover bg-white/10" />
+          )}
           <div>
             <h3 className="text-white font-bold text-sm leading-tight">{tool.name}</h3>
             {tool.categories && (
@@ -243,12 +229,12 @@ function ToolCard({ tool }: { tool: any }) {
           </span>
           {tool.is_new && (
             <span className="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full">
-              New
+              New ✨
             </span>
           )}
           {tool.is_featured && (
             <span className="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 px-2 py-0.5 rounded-full">
-               Featured
+              ⭐ Featured
             </span>
           )}
           {tool.is_sponsored && (

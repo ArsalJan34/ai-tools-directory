@@ -8,11 +8,17 @@ export const metadata: Metadata = {
     'Browse our complete directory of AI tools. Filter by category, pricing, and more. Find the perfect AI tool for writing, coding, image generation, and more.',
 }
 
-async function getTools() {
-  const { data } = await supabase
+async function getTools(search?: string) {
+  let query = supabase
     .from('tools')
     .select('*, categories(name, slug, icon)')
     .order('created_at', { ascending: false })
+
+  if (search) {
+    query = query.ilike('name', `%${search}%`)
+  }
+
+  const { data } = await query
   return data || []
 }
 
@@ -24,8 +30,13 @@ async function getCategories() {
   return data || []
 }
 
-export default async function ToolsPage() {
-  const tools = await getTools()
+export default async function ToolsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ search?: string }>
+}) {
+  const { search } = await searchParams
+  const tools = await getTools(search)
   const categories = await getCategories()
 
   return (
@@ -36,6 +47,7 @@ export default async function ToolsPage() {
         <h1 className="text-4xl font-extrabold text-white mb-3">All AI Tools</h1>
         <p className="text-gray-400 text-lg">
           Browsing <span className="text-white font-semibold">{tools.length} tools</span> across all categories
+          {search && <span className="text-violet-400"> for "{search}"</span>}
         </p>
       </div>
 
@@ -126,10 +138,10 @@ export default async function ToolsPage() {
                       {tool.pricing_type}
                     </span>
                     {tool.is_new && (
-                      <span className="text-xs bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 px-2 py-0.5 rounded-full">New </span>
+                      <span className="text-xs bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 px-2 py-0.5 rounded-full">New ✨</span>
                     )}
                     {tool.is_featured && (
-                      <span className="text-xs bg-yellow-500/15 text-yellow-400 border border-yellow-500/25 px-2 py-0.5 rounded-full"> Featured</span>
+                      <span className="text-xs bg-yellow-500/15 text-yellow-400 border border-yellow-500/25 px-2 py-0.5 rounded-full">⭐ Featured</span>
                     )}
                     {tool.is_sponsored && (
                       <span className="text-xs bg-blue-500/15 text-blue-400 border border-blue-500/25 px-2 py-0.5 rounded-full">Sponsored</span>
@@ -170,8 +182,11 @@ export default async function ToolsPage() {
 
           {tools.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-5xl mb-4">Search</p>
-              <p className="text-gray-500 text-lg">No tools found.</p>
+              <p className="text-5xl mb-4">🔍</p>
+              <p className="text-gray-500 text-lg">No tools found for "{search}"</p>
+              <Link href="/tools" className="text-violet-400 hover:text-violet-300 text-sm mt-3 inline-block">
+                Clear search →
+              </Link>
             </div>
           )}
         </div>
