@@ -61,7 +61,7 @@ export default function RootLayout({
           content="28PxnAniJ5rJ041ay4W_KUihvrHsjOhHbnVqMVv55mA"
         />
       </head>
-      <body>
+      <body className="bg-[#080810] text-white antialiased min-h-screen">
         <Navbar />
         {children}
         <Footer />
