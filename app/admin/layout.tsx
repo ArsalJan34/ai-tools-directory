@@ -9,6 +9,11 @@ export default function AdminLayout({
     <div className="min-h-screen flex">
 
       {/* Sidebar */}
+      <form action="/api/admin-logout" method="POST">
+  <button className="text-gray-500 hover:text-red-400 text-sm transition mt-auto">
+    Logout
+  </button>
+</form>
       <aside className="w-56 shrink-0 bg-white/5 border-r border-white/10 p-6 flex flex-col gap-2 sticky top-0 h-screen">
         <p className="text-white font-bold text-lg mb-6">
           🛠️ Admin Panel
