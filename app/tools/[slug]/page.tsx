@@ -68,7 +68,7 @@ export default async function ToolDetailPage({
       </Link>
 
       {/* Tool Header */}
-      <div className="glass-card rounded-3xl p-8 mb-6">
+      <div className="bg-white/[0.03] border border-white/[0.08] rounded-3xl p-8 mb-6">
         <div className="flex flex-col md:flex-row md:items-start gap-6">
           <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-violet-600/30 to-blue-600/30 border border-white/10 flex items-center justify-center text-4xl shrink-0 shadow-xl">
             🤖
@@ -106,7 +106,7 @@ export default async function ToolDetailPage({
 
             <div className="flex flex-wrap gap-1.5">
               {tool.tags?.map((tag: string) => (
-                <span key={tag} className="text-xs bg-white/5 border border-white/8 text-gray-500 px-2.5 py-1 rounded-lg">
+                <span key={tag} className="text-xs bg-white/5 border border-white/[0.08] text-gray-500 px-2.5 py-1 rounded-lg">
                   #{tag}
                 </span>
               ))}
@@ -127,7 +127,7 @@ export default async function ToolDetailPage({
       </div>
 
       {/* About */}
-      <div className="glass-card rounded-3xl p-8 mb-6">
+      <div className="bg-white/[0.03] border border-white/[0.08] rounded-3xl p-8 mb-6">
         <h2 className="text-xl font-bold text-white mb-4">About {tool.name}</h2>
         <p className="text-gray-400 leading-relaxed text-sm">
           {tool.description || tool.tagline}
@@ -135,7 +135,7 @@ export default async function ToolDetailPage({
       </div>
 
       {/* Details */}
-      <div className="glass-card rounded-3xl p-8 mb-8">
+      <div className="bg-white/[0.03] border border-white/[0.08] rounded-3xl p-8 mb-8">
         <h2 className="text-xl font-bold text-white mb-6">Tool Details</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[
@@ -143,12 +143,12 @@ export default async function ToolDetailPage({
             { label: 'Category', value: tool.categories ? `${tool.categories.icon} ${tool.categories.name}` : 'General' },
             { label: 'Added', value: new Date(tool.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) },
           ].map((item) => (
-            <div key={item.label} className="bg-white/3 rounded-2xl p-4 border border-white/5">
+            <div key={item.label} className="bg-white/[0.03] rounded-2xl p-4 border border-white/5">
               <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">{item.label}</p>
               <p className={`text-white font-semibold ${item.capitalize ? 'capitalize' : ''}`}>{item.value}</p>
             </div>
           ))}
-          <div className="bg-white/3 rounded-2xl p-4 border border-white/5">
+          <div className="bg-white/[0.03] rounded-2xl p-4 border border-white/5">
             <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Website</p>
             <a
               href={tool.url}
@@ -171,7 +171,7 @@ export default async function ToolDetailPage({
               <Link
                 key={related.id}
                 href={`/tools/${related.slug}`}
-                className="glass-card glow-card rounded-2xl p-5 transition-all duration-300 hover:scale-[1.02] block"
+                className="bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] hover:border-violet-500/40 rounded-2xl p-5 transition-all duration-300 hover:scale-[1.02] block"
               >
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 bg-gradient-to-br from-violet-600/30 to-blue-600/30 border border-white/10 rounded-xl flex items-center justify-center">

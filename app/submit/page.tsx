@@ -39,8 +39,8 @@ export default function SubmitPage() {
   if (submitted) {
     return (
       <main className="min-h-screen flex items-center justify-center px-4">
-        <div className="glass-card rounded-3xl p-14 text-center max-w-lg w-full">
-          <div className="text-7xl mb-6 float">🎉</div>
+        <div className="bg-white/[0.03] border border-white/[0.08] rounded-3xl p-14 text-center max-w-lg w-full">
+          <div className="text-7xl mb-6 inline-block" style={{ animation: 'float 4s ease-in-out infinite' }}>🎉</div>
           <h1 className="text-3xl font-extrabold text-white mb-4">Tool Submitted!</h1>
           <p className="text-gray-400 mb-8 leading-relaxed">
             Thank you! We will review your tool and add it to the directory within 24–48 hours.
@@ -63,7 +63,7 @@ export default function SubmitPage() {
         </p>
       </div>
 
-      <div className="glass-card rounded-3xl p-8">
+      <div className="bg-white/[0.03] border border-white/[0.08] rounded-3xl p-8">
         <div className="mb-6">
           <label className="block text-white font-semibold mb-2 text-sm">
             Tool Name <span className="text-red-400">*</span>
@@ -141,5 +141,3 @@ export default function SubmitPage() {
     </main>
   )
 }
-
-
