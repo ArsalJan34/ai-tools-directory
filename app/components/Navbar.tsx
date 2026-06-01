@@ -27,8 +27,8 @@ export default function Navbar() {
   <Image
     src="/logo.png"
     alt="aishelve logo"
-    width={32}
-    height={32}
+    width={40}
+    height={40}
     className="rounded-lg"
   />
 
