@@ -7,7 +7,7 @@ const supabase = createClient(
 )
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://aishelve.vercel.app/'
+  const baseUrl = 'https://aishelve.com'
 
   // Get all tools
   const { data: tools } = await supabase
