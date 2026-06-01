@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -22,9 +23,18 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-blue-600 flex items-center justify-center text-sm font-bold shadow-lg shadow-violet-500/30 group-hover:shadow-violet-500/50 transition-all">
-            AI
-          </div>
+          <Link href="/" className="flex items-center gap-2 group">
+  <Image
+    src="/logo.png"
+    alt="aishelve logo"
+    width={32}
+    height={32}
+    className="rounded-lg"
+  />
+
+  <span className="text-white font-bold text-lg tracking-tight">
+  </span>
+</Link>
           <span className="text-white font-bold text-lg tracking-tight">
             ai<span className="text-violet-400">shelve</span>
           </span>
