@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { supabase } from '../../lib/supabase'
 import { notFound } from 'next/navigation'
-
+import type { Metadata } from 'next'
 
 async function getTool(slug: string) {
   const { data } = await supabase
@@ -22,6 +22,26 @@ async function getRelatedTools(categoryId: string, currentSlug: string) {
   return data || []
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const tool = await getTool(slug)
+  if (!tool) return { title: 'Tool Not Found' }
+  return {
+    title: `${tool.name} - ${tool.tagline}`,
+    description: tool.description || tool.tagline,
+  }
+}
+
+const pricingBadge: Record<string, string> = {
+  free: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/25',
+  freemium: 'bg-blue-500/15 text-blue-400 border border-blue-500/25',
+  paid: 'bg-orange-500/15 text-orange-400 border border-orange-500/25',
+}
+
 export default async function ToolDetailPage({
   params,
 }: {
@@ -30,142 +50,114 @@ export default async function ToolDetailPage({
   const { slug } = await params
   const tool = await getTool(slug)
 
-  if (!tool) {
-    notFound()
-  }
-const relatedTools = tool.category_id
-  ? await getRelatedTools(tool.category_id, slug)
-  : []
+  if (!tool) notFound()
+
+  const relatedTools = tool.category_id
+    ? await getRelatedTools(tool.category_id, slug)
+    : []
 
   return (
     <main className="min-h-screen px-4 py-12 max-w-4xl mx-auto">
 
-      {/* Back Button */}
       <Link
         href="/tools"
-        className="text-gray-400 hover:text-white text-sm mb-8 inline-flex items-center gap-2 transition"
+        className="inline-flex items-center gap-2 text-gray-500 hover:text-white text-sm mb-8 transition-colors group"
       >
-        ← Back to all tools
+        <span className="group-hover:-translate-x-1 transition-transform">←</span>
+        Back to all tools
       </Link>
 
       {/* Tool Header */}
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-8 mt-4 mb-8">
+      <div className="glass-card rounded-3xl p-8 mb-6">
         <div className="flex flex-col md:flex-row md:items-start gap-6">
-
-          {/* Logo */}
-          <div className="w-20 h-20 bg-purple-600/30 rounded-2xl flex items-center justify-center text-4xl shrink-0">
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-violet-600/30 to-blue-600/30 border border-white/10 flex items-center justify-center text-4xl shrink-0 shadow-xl">
             🤖
           </div>
 
-          {/* Info */}
           <div className="flex-1">
-            <div className="flex flex-wrap items-center gap-3 mb-2">
-              <h1 className="text-3xl font-bold text-white">{tool.name}</h1>
+            <div className="flex flex-wrap items-center gap-3 mb-3">
+              <h1 className="text-3xl font-extrabold text-white">{tool.name}</h1>
+              <span className={`text-xs px-3 py-1 rounded-full font-semibold capitalize border ${pricingBadge[tool.pricing_type] || pricingBadge.free}`}>
+                {tool.pricing_type}
+              </span>
               {tool.is_new && (
-                <span className="text-xs bg-green-500/20 text-green-400 border border-green-500/30 px-3 py-1 rounded-full">
-                  New
-                </span>
+                <span className="text-xs bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 px-3 py-1 rounded-full">New ✨</span>
               )}
               {tool.is_featured && (
-                <span className="text-xs bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 px-3 py-1 rounded-full">
-                  Featured
-                </span>
+                <span className="text-xs bg-yellow-500/15 text-yellow-400 border border-yellow-500/25 px-3 py-1 rounded-full">⭐ Featured</span>
               )}
               {tool.is_sponsored && (
-                <span className="text-xs bg-blue-500/20 text-blue-400 border border-blue-500/30 px-3 py-1 rounded-full">
-                  Sponsored
-                </span>
+                <span className="text-xs bg-blue-500/15 text-blue-400 border border-blue-500/25 px-3 py-1 rounded-full">Sponsored</span>
               )}
             </div>
 
-            <p className="text-gray-300 text-lg mb-4">{tool.tagline}</p>
+            <p className="text-gray-300 text-lg mb-4 leading-relaxed">{tool.tagline}</p>
 
-            <div className="flex flex-wrap gap-3 mb-4">
+            <div className="flex flex-wrap gap-2 mb-4">
               {tool.categories && (
                 <Link
                   href={`/category/${tool.categories.slug}`}
-                  className="text-sm bg-purple-600/20 text-purple-300 border border-purple-500/30 px-3 py-1 rounded-full hover:bg-purple-600/30 transition"
+                  className="text-sm bg-violet-500/10 text-violet-300 border border-violet-500/20 px-3 py-1.5 rounded-xl hover:bg-violet-500/20 transition-colors"
                 >
                   {tool.categories.icon} {tool.categories.name}
                 </Link>
               )}
-              <span className="text-sm bg-white/10 text-gray-300 border border-white/10 px-3 py-1 rounded-full capitalize">
-                {tool.pricing_type}
-              </span>
             </div>
 
-            {/* Tags */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {tool.tags?.map((tag: string) => (
-                <span
-                  key={tag}
-                  className="text-xs bg-white/10 text-gray-400 px-2 py-1 rounded-md"
-                >
-                  {tag}
+                <span key={tag} className="text-xs bg-white/5 border border-white/8 text-gray-500 px-2.5 py-1 rounded-lg">
+                  #{tag}
                 </span>
               ))}
             </div>
           </div>
 
-          {/* Visit Button */}
           <div className="shrink-0">
-           <Link
-  href={`/api/click/${tool.id}`}
-  target="_blank"
-  className="block bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl font-medium transition text-center"
->
-  Visit Tool →
-</Link>
-            <p className="text-gray-600 text-xs text-center mt-2">
-              Opens in new tab
-            </p>
+            <Link
+              href={`/api/click/${tool.id}`}
+              target="_blank"
+              className="block bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 text-white px-8 py-3 rounded-2xl font-bold transition-all shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 hover:scale-105 text-center whitespace-nowrap"
+            >
+              Visit Site →
+            </Link>
+            <p className="text-gray-600 text-xs text-center mt-2">Opens in new tab</p>
           </div>
-
         </div>
       </div>
 
-      {/* Description */}
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-8 mb-8">
+      {/* About */}
+      <div className="glass-card rounded-3xl p-8 mb-6">
         <h2 className="text-xl font-bold text-white mb-4">About {tool.name}</h2>
-        <p className="text-gray-400 leading-relaxed">
+        <p className="text-gray-400 leading-relaxed text-sm">
           {tool.description || tool.tagline}
         </p>
       </div>
 
-      {/* Tool Details */}
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-8 mb-8">
+      {/* Details */}
+      <div className="glass-card rounded-3xl p-8 mb-8">
         <h2 className="text-xl font-bold text-white mb-6">Tool Details</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="flex flex-col gap-1">
-            <span className="text-gray-500 text-sm">Pricing</span>
-            <span className="text-white capitalize">{tool.pricing_type}</span>
-          </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-gray-500 text-sm">Category</span>
-            <span className="text-white">
-              {tool.categories ? `${tool.categories.icon} ${tool.categories.name}` : 'General'}
-            </span>
-          </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-gray-500 text-sm">Website</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {[
+            { label: 'Pricing', value: tool.pricing_type, capitalize: true },
+            { label: 'Category', value: tool.categories ? `${tool.categories.icon} ${tool.categories.name}` : 'General' },
+            { label: 'Added', value: new Date(tool.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) },
+          ].map((item) => (
+            <div key={item.label} className="bg-white/3 rounded-2xl p-4 border border-white/5">
+              <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">{item.label}</p>
+              <p className={`text-white font-semibold ${item.capitalize ? 'capitalize' : ''}`}>{item.value}</p>
+            </div>
+          ))}
+          <div className="bg-white/3 rounded-2xl p-4 border border-white/5">
+            <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Website</p>
             <a
               href={tool.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-purple-400 hover:text-purple-300 transition truncate"
+              className="text-violet-400 hover:text-violet-300 transition-colors text-sm font-semibold truncate block"
             >
               {tool.url}
             </a>
-          </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-gray-500 text-sm">Added</span>
-            <span className="text-white">
-              {new Date(tool.created_at).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </span>
           </div>
         </div>
       </div>
@@ -179,35 +171,32 @@ const relatedTools = tool.category_id
               <Link
                 key={related.id}
                 href={`/tools/${related.slug}`}
-                className="bg-white/5 border border-white/10 hover:border-purple-500/40 rounded-xl p-5 transition hover:bg-white/8 block"
+                className="glass-card glow-card rounded-2xl p-5 transition-all duration-300 hover:scale-[1.02] block"
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-purple-600/30 rounded-lg flex items-center justify-center text-lg">
+                  <div className="w-10 h-10 bg-gradient-to-br from-violet-600/30 to-blue-600/30 border border-white/10 rounded-xl flex items-center justify-center">
                     🤖
                   </div>
                   <div>
-                    <p className="text-white font-medium">{related.name}</p>
+                    <p className="text-white font-bold text-sm">{related.name}</p>
                     <p className="text-gray-500 text-xs capitalize">{related.pricing_type}</p>
                   </div>
                 </div>
-                <p className="text-gray-400 text-sm line-clamp-2">{related.tagline}</p>
+                <p className="text-gray-400 text-xs line-clamp-2">{related.tagline}</p>
               </Link>
             ))}
           </div>
         </div>
       )}
 
-      {/* CTA */}
-      <div className="bg-gradient-to-r from-purple-900/40 to-blue-900/40 border border-purple-500/20 rounded-2xl p-8 text-center">
-        <h3 className="text-xl font-bold text-white mb-3">
-          Know a better tool?
-        </h3>
-        <p className="text-gray-400 mb-6">
-          Submit it to our directory and reach thousands of users.
-        </p>
+      {/* Bottom CTA */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-violet-900/60 to-blue-900/60 border border-violet-500/20 p-10 text-center">
+        <div className="absolute inset-0 bg-gradient-to-r from-violet-600/10 to-blue-600/10 pointer-events-none" />
+        <h3 className="text-xl font-bold text-white mb-3 relative">Know a better tool?</h3>
+        <p className="text-gray-400 mb-6 relative">Submit it and reach thousands of users daily.</p>
         <Link
           href="/submit"
-          className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl font-medium transition inline-block"
+          className="bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 text-white px-8 py-3 rounded-2xl font-bold transition-all hover:scale-105 inline-block relative"
         >
           Submit a Tool →
         </Link>

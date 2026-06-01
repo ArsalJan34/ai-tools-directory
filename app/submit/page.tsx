@@ -1,12 +1,12 @@
 'use client'
 import { useState } from 'react'
+import Link from 'next/link'
 import { supabase } from '../lib/supabase'
 
 export default function SubmitPage() {
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
-
   const [form, setForm] = useState({
     name: '',
     url: '',
@@ -14,62 +14,40 @@ export default function SubmitPage() {
     email: '',
   })
 
-  function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
   async function handleSubmit() {
     setError('')
-
     if (!form.name || !form.url) {
       setError('Tool name and URL are required.')
       return
     }
-
     setLoading(true)
-
     const { error: supabaseError } = await supabase
       .from('submissions')
-      .insert([
-        {
-          name: form.name,
-          url: form.url,
-          description: form.description,
-          email: form.email,
-          status: 'pending',
-        },
-      ])
-
+      .insert([{ name: form.name, url: form.url, description: form.description, email: form.email, status: 'pending' }])
     setLoading(false)
-
     if (supabaseError) {
       setError('Something went wrong. Please try again.')
       return
     }
-
     setSubmitted(true)
   }
 
   if (submitted) {
     return (
-      <main className="min-h-screen px-4 py-20 max-w-2xl mx-auto text-center">
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-12">
-          <div className="text-6xl mb-6">🎉</div>
-          <h1 className="text-3xl font-bold text-white mb-4">
-            Tool Submitted!
-          </h1>
-          <p className="text-gray-400 mb-8">
-            Thank you for submitting. We will review your tool and add it to the
-            directory within 24–48 hours.
+      <main className="min-h-screen flex items-center justify-center px-4">
+        <div className="glass-card rounded-3xl p-14 text-center max-w-lg w-full">
+          <div className="text-7xl mb-6 float">🎉</div>
+          <h1 className="text-3xl font-extrabold text-white mb-4">Tool Submitted!</h1>
+          <p className="text-gray-400 mb-8 leading-relaxed">
+            Thank you! We will review your tool and add it to the directory within 24–48 hours.
           </p>
-          <a
-            href="/"
-            className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl font-medium transition inline-block"
-          >
+          <Link href="/" className="bg-gradient-to-r from-violet-600 to-blue-600 text-white px-8 py-3 rounded-2xl font-bold transition-all hover:scale-105 inline-block">
             Back to Home
-          </a>
+          </Link>
         </div>
       </main>
     )
@@ -77,24 +55,17 @@ export default function SubmitPage() {
 
   return (
     <main className="min-h-screen px-4 py-12 max-w-2xl mx-auto">
-
-      {/* Header */}
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold text-white mb-4">
-          Submit an AI Tool
-        </h1>
+        <p className="text-violet-400 text-sm font-semibold uppercase tracking-widest mb-3">Free Submission</p>
+        <h1 className="text-4xl font-extrabold text-white mb-4">Submit an AI Tool</h1>
         <p className="text-gray-400 text-lg">
-          Know a great AI tool? Submit it and get discovered by thousands of
-          users for free.
+          Know a great AI tool? Submit it and get discovered by thousands of users for free.
         </p>
       </div>
 
-      {/* Form */}
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
-
-        {/* Tool Name */}
+      <div className="glass-card rounded-3xl p-8">
         <div className="mb-6">
-          <label className="block text-white font-medium mb-2">
+          <label className="block text-white font-semibold mb-2 text-sm">
             Tool Name <span className="text-red-400">*</span>
           </label>
           <input
@@ -103,13 +74,12 @@ export default function SubmitPage() {
             value={form.name}
             onChange={handleChange}
             placeholder="e.g. ChatGPT"
-            className="w-full bg-white/10 border border-white/20 text-white placeholder-gray-500 px-4 py-3 rounded-xl focus:outline-none focus:border-purple-500 transition"
+            className="w-full bg-white/5 border border-white/10 focus:border-violet-500 text-white placeholder-gray-600 px-4 py-3 rounded-2xl focus:outline-none transition-all text-sm"
           />
         </div>
 
-        {/* Tool URL */}
         <div className="mb-6">
-          <label className="block text-white font-medium mb-2">
+          <label className="block text-white font-semibold mb-2 text-sm">
             Tool URL <span className="text-red-400">*</span>
           </label>
           <input
@@ -117,14 +87,13 @@ export default function SubmitPage() {
             name="url"
             value={form.url}
             onChange={handleChange}
-            placeholder="e.g. https://yourtool.com"
-            className="w-full bg-white/10 border border-white/20 text-white placeholder-gray-500 px-4 py-3 rounded-xl focus:outline-none focus:border-purple-500 transition"
+            placeholder="https://yourtool.com"
+            className="w-full bg-white/5 border border-white/10 focus:border-violet-500 text-white placeholder-gray-600 px-4 py-3 rounded-2xl focus:outline-none transition-all text-sm"
           />
         </div>
 
-        {/* Description */}
         <div className="mb-6">
-          <label className="block text-white font-medium mb-2">
+          <label className="block text-white font-semibold mb-2 text-sm">
             Short Description
           </label>
           <textarea
@@ -133,17 +102,13 @@ export default function SubmitPage() {
             onChange={handleChange}
             placeholder="What does this tool do? Who is it for?"
             rows={4}
-            className="w-full bg-white/10 border border-white/20 text-white placeholder-gray-500 px-4 py-3 rounded-xl focus:outline-none focus:border-purple-500 transition resize-none"
+            className="w-full bg-white/5 border border-white/10 focus:border-violet-500 text-white placeholder-gray-600 px-4 py-3 rounded-2xl focus:outline-none transition-all resize-none text-sm"
           />
         </div>
 
-        {/* Email */}
         <div className="mb-8">
-          <label className="block text-white font-medium mb-2">
-            Your Email{' '}
-            <span className="text-gray-500 font-normal text-sm">
-              (optional, for updates)
-            </span>
+          <label className="block text-white font-semibold mb-2 text-sm">
+            Your Email <span className="text-gray-600 font-normal">(optional)</span>
           </label>
           <input
             type="email"
@@ -151,31 +116,30 @@ export default function SubmitPage() {
             value={form.email}
             onChange={handleChange}
             placeholder="you@example.com"
-            className="w-full bg-white/10 border border-white/20 text-white placeholder-gray-500 px-4 py-3 rounded-xl focus:outline-none focus:border-purple-500 transition"
+            className="w-full bg-white/5 border border-white/10 focus:border-violet-500 text-white placeholder-gray-600 px-4 py-3 rounded-2xl focus:outline-none transition-all text-sm"
           />
         </div>
 
-        {/* Error */}
         {error && (
-          <div className="mb-6 bg-red-500/20 border border-red-500/30 text-red-400 px-4 py-3 rounded-xl text-sm">
+          <div className="mb-6 bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-2xl text-sm">
             {error}
           </div>
         )}
 
-        {/* Submit Button */}
         <button
           onClick={handleSubmit}
           disabled={loading}
-          className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-purple-800 disabled:cursor-not-allowed text-white py-3 rounded-xl font-medium transition"
+          className="w-full bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white py-4 rounded-2xl font-bold transition-all hover:scale-[1.02] shadow-lg shadow-violet-500/25"
         >
           {loading ? 'Submitting...' : 'Submit Tool →'}
         </button>
 
-        <p className="text-gray-500 text-sm text-center mt-4">
+        <p className="text-gray-600 text-xs text-center mt-4">
           Free submissions are reviewed within 48 hours.
         </p>
       </div>
-
     </main>
   )
 }
+
+
