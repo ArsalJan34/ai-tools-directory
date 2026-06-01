@@ -7,6 +7,16 @@ import { Analytics } from '@vercel/analytics/next'
 export const metadata: Metadata = {
   metadataBase: new URL('https://aishelve.com'),
 
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/icon.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: '/apple-icon.png',
+
+
+  // rest of your metadata...
+},
   title: {
     default: 'AI Tools Directory - Find The Best AI Tools',
     template: '%s | AI Tools Directory',
