@@ -142,7 +142,7 @@ export default async function Home() {
         <div className="flex items-end justify-between mb-10">
           <div>
             <p className="text-violet-400 text-xs font-bold uppercase tracking-widest mb-2">Handpicked</p>
-            <h2 className="text-3xl font-extrabold text-white">⭐ Featured Tools</h2>
+            <h2 className="text-3xl font-extrabold text-white"> Featured Tools</h2>
           </div>
           <Link href="/tools" className="text-gray-500 hover:text-white text-sm transition-colors">
             View all →
@@ -160,7 +160,7 @@ export default async function Home() {
         <div className="flex items-end justify-between mb-10">
           <div>
             <p className="text-violet-400 text-xs font-bold uppercase tracking-widest mb-2">Recently Added</p>
-            <h2 className="text-3xl font-extrabold text-white">🆕 New Tools</h2>
+            <h2 className="text-3xl font-extrabold text-white"> New Tools</h2>
           </div>
           <Link href="/tools" className="text-gray-500 hover:text-white text-sm transition-colors">
             View all →
@@ -220,9 +220,11 @@ function ToolCard({ tool }: { tool: any }) {
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-600/20 to-blue-600/20 border border-white/10 flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">
-            🤖
-          </div>
+          {tool.logo_url ? (
+  <img src={tool.logo_url} alt={tool.name} className="w-11 h-11 rounded-xl object-contain bg-white p-1" />
+) : (
+  <img src={`https://www.google.com/s2/favicons?domain=${tool.url ? new URL(tool.url).hostname : 'example.com'}&sz=64`} alt={tool.name} className="w-11 h-11 rounded-xl object-cover bg-white/10" />
+)}
           <div>
             <h3 className="text-white font-bold text-sm leading-tight">{tool.name}</h3>
             {tool.categories && (
@@ -241,12 +243,12 @@ function ToolCard({ tool }: { tool: any }) {
           </span>
           {tool.is_new && (
             <span className="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full">
-              New ✨
+              New
             </span>
           )}
           {tool.is_featured && (
             <span className="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 px-2 py-0.5 rounded-full">
-              ⭐ Featured
+               Featured
             </span>
           )}
           {tool.is_sponsored && (

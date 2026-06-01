@@ -70,9 +70,11 @@ export default async function ToolDetailPage({
       {/* Tool Header */}
       <div className="bg-white/[0.03] border border-white/[0.08] rounded-3xl p-8 mb-6">
         <div className="flex flex-col md:flex-row md:items-start gap-6">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-violet-600/30 to-blue-600/30 border border-white/10 flex items-center justify-center text-4xl shrink-0 shadow-xl">
-            🤖
-          </div>
+         {tool.logo_url ? (
+  <img src={tool.logo_url} alt={tool.name} className="w-20 h-20 rounded-2xl object-contain bg-white p-2 shrink-0" />
+) : (
+  <img src={`https://www.google.com/s2/favicons?domain=${tool.url ? new URL(tool.url).hostname : 'example.com'}&sz=128`} alt={tool.name} className="w-20 h-20 rounded-2xl object-cover bg-white/10 shrink-0" />
+)}
 
           <div className="flex-1">
             <div className="flex flex-wrap items-center gap-3 mb-3">
@@ -81,10 +83,10 @@ export default async function ToolDetailPage({
                 {tool.pricing_type}
               </span>
               {tool.is_new && (
-                <span className="text-xs bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 px-3 py-1 rounded-full">New ✨</span>
+                <span className="text-xs bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 px-3 py-1 rounded-full">New </span>
               )}
               {tool.is_featured && (
-                <span className="text-xs bg-yellow-500/15 text-yellow-400 border border-yellow-500/25 px-3 py-1 rounded-full">⭐ Featured</span>
+                <span className="text-xs bg-yellow-500/15 text-yellow-400 border border-yellow-500/25 px-3 py-1 rounded-full"> Featured</span>
               )}
               {tool.is_sponsored && (
                 <span className="text-xs bg-blue-500/15 text-blue-400 border border-blue-500/25 px-3 py-1 rounded-full">Sponsored</span>
@@ -174,9 +176,11 @@ export default async function ToolDetailPage({
                 className="bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] hover:border-violet-500/40 rounded-2xl p-5 transition-all duration-300 hover:scale-[1.02] block"
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-violet-600/30 to-blue-600/30 border border-white/10 rounded-xl flex items-center justify-center">
-                    🤖
-                  </div>
+                 {related.logo_url ? (
+  <img src={related.logo_url} alt={related.name} className="w-10 h-10 rounded-xl object-contain bg-white p-1" />
+) : (
+  <img src={`https://www.google.com/s2/favicons?domain=${related.url ? new URL(related.url).hostname : 'example.com'}&sz=64`} alt={related.name} className="w-10 h-10 rounded-xl object-cover bg-white/10" />
+)}
                   <div>
                     <p className="text-white font-bold text-sm">{related.name}</p>
                     <p className="text-gray-500 text-xs capitalize">{related.pricing_type}</p>

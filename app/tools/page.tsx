@@ -4,7 +4,8 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'All AI Tools',
-  description: 'Browse our complete directory of AI tools. Filter by category, pricing, and more.',
+  description:
+    'Browse our complete directory of AI tools. Filter by category, pricing, and more. Find the perfect AI tool for writing, coding, image generation, and more.',
 }
 
 async function getTools() {
@@ -23,20 +24,13 @@ async function getCategories() {
   return data || []
 }
 
-const pricingBadge: Record<string, string> = {
-  free: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/25',
-  freemium: 'bg-blue-500/15 text-blue-400 border border-blue-500/25',
-  paid: 'bg-orange-500/15 text-orange-400 border border-orange-500/25',
-}
-
 export default async function ToolsPage() {
   const tools = await getTools()
   const categories = await getCategories()
 
   return (
-    <main className="min-h-screen px-4 py-12 max-w-7xl mx-auto">
+    <main className="min-h-screen bg-[#080810] px-4 py-12 max-w-7xl mx-auto">
 
-      {/* Header */}
       <div className="mb-10">
         <p className="text-violet-400 text-sm font-semibold uppercase tracking-widest mb-2">Directory</p>
         <h1 className="text-4xl font-extrabold text-white mb-3">All AI Tools</h1>
@@ -49,7 +43,7 @@ export default async function ToolsPage() {
 
         {/* Sidebar */}
         <aside className="w-full md:w-60 shrink-0">
-          <div className="glass-card rounded-2xl p-5 sticky top-24">
+          <div className="bg-white/[0.03] border border-white/[0.08] rounded-2xl p-5 sticky top-24">
             <p className="text-white font-bold text-sm mb-4 uppercase tracking-wider">Categories</p>
             <div className="flex flex-col gap-1">
               <Link
@@ -98,13 +92,19 @@ export default async function ToolsPage() {
             {tools.map((tool: any) => (
               <div
                 key={tool.id}
-                className="glass-card glow-card rounded-2xl p-5 transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 flex flex-col group"
+                className="bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] hover:border-violet-500/40 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-violet-500/10 flex flex-col group"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-600/30 to-blue-600/30 border border-white/10 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
-                      🤖
-                    </div>
+                    {tool.logo_url ? (
+                      <img src={tool.logo_url} alt={tool.name} className="w-12 h-12 rounded-xl object-contain bg-white p-1 shrink-0" />
+                    ) : (
+                      <img
+                        src={`https://www.google.com/s2/favicons?domain=${tool.url ? new URL(tool.url).hostname : 'example.com'}&sz=64`}
+                        alt={tool.name}
+                        className="w-12 h-12 rounded-xl object-cover bg-white/10 shrink-0"
+                      />
+                    )}
                     <div>
                       <h3 className="text-white font-bold">{tool.name}</h3>
                       {tool.categories && (
@@ -117,15 +117,19 @@ export default async function ToolsPage() {
                       )}
                     </div>
                   </div>
-                  <div className="flex flex-col items-end gap-1">
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize ${pricingBadge[tool.pricing_type] || pricingBadge.free}`}>
+                  <div className="flex flex-col items-end gap-1 shrink-0 ml-2">
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize border ${
+                      tool.pricing_type === 'free' ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/25' :
+                      tool.pricing_type === 'freemium' ? 'bg-blue-500/15 text-blue-400 border-blue-500/25' :
+                      'bg-orange-500/15 text-orange-400 border-orange-500/25'
+                    }`}>
                       {tool.pricing_type}
                     </span>
                     {tool.is_new && (
-                      <span className="text-xs bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 px-2 py-0.5 rounded-full">New ✨</span>
+                      <span className="text-xs bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 px-2 py-0.5 rounded-full">New </span>
                     )}
                     {tool.is_featured && (
-                      <span className="text-xs bg-yellow-500/15 text-yellow-400 border border-yellow-500/25 px-2 py-0.5 rounded-full">⭐ Featured</span>
+                      <span className="text-xs bg-yellow-500/15 text-yellow-400 border border-yellow-500/25 px-2 py-0.5 rounded-full"> Featured</span>
                     )}
                     {tool.is_sponsored && (
                       <span className="text-xs bg-blue-500/15 text-blue-400 border border-blue-500/25 px-2 py-0.5 rounded-full">Sponsored</span>
@@ -139,7 +143,7 @@ export default async function ToolsPage() {
 
                 <div className="flex flex-wrap gap-1.5 mb-4">
                   {tool.tags?.slice(0, 3).map((tag: string) => (
-                    <span key={tag} className="text-xs bg-white/5 border border-white/8 text-gray-500 px-2.5 py-1 rounded-lg">
+                    <span key={tag} className="text-xs bg-white/5 border border-white/[0.08] text-gray-500 px-2.5 py-1 rounded-lg">
                       #{tag}
                     </span>
                   ))}
@@ -155,7 +159,7 @@ export default async function ToolsPage() {
                   </Link>
                   <Link
                     href={`/tools/${tool.slug}`}
-                    className="px-4 bg-white/5 hover:bg-white/10 border border-white/8 text-gray-400 hover:text-white py-2.5 rounded-xl text-sm font-medium transition-all"
+                    className="px-4 bg-white/5 hover:bg-white/10 border border-white/[0.08] text-gray-400 hover:text-white py-2.5 rounded-xl text-sm font-medium transition-all"
                   >
                     Info
                   </Link>
@@ -166,7 +170,7 @@ export default async function ToolsPage() {
 
           {tools.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-5xl mb-4">🔍</p>
+              <p className="text-5xl mb-4">Search</p>
               <p className="text-gray-500 text-lg">No tools found.</p>
             </div>
           )}

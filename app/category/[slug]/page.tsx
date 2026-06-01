@@ -93,7 +93,7 @@ export default async function CategoryPage({
         <div className="flex-1">
           {toolsList.length === 0 ? (
             <div className="text-center py-20">
-              <p className="text-4xl mb-4">🔍</p>
+              <p className="text-4xl mb-4">Search</p>
               <p className="text-gray-400 text-lg">
                 No tools in this category yet.
               </p>
@@ -113,9 +113,11 @@ export default async function CategoryPage({
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-purple-600/30 rounded-lg flex items-center justify-center text-lg shrink-0">
-                        🤖
-                      </div>
+                      {tool.logo_url ? (
+  <img src={tool.logo_url} alt={tool.name} className="w-10 h-10 rounded-lg object-contain bg-white p-1" />
+) : (
+  <img src={`https://www.google.com/s2/favicons?domain=${tool.url ? new URL(tool.url).hostname : 'example.com'}&sz=64`} alt={tool.name} className="w-10 h-10 rounded-lg object-cover bg-white/10" />
+)}
                       <div>
                         <h3 className="text-white font-semibold">{tool.name}</h3>
                         <span className="text-xs text-gray-500 capitalize">
