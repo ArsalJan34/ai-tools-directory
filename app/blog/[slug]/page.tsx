@@ -40,6 +40,77 @@ const posts: Record<string, any> = {
       Start with free versions of ChatGPT or Claude. Upgrade when your needs grow.
     `,
   },
+  'ai-tools-for-students': {
+  title: 'Best AI Tools for Students in 2025',
+  description: 'Students can save hours every week using the right AI tools.',
+  category: 'Education',
+  date: 'April 2025',
+  readTime: '6 min read',
+  content: `
+    AI tools are transforming education in 2025.
+
+    ## 1. ChatGPT
+    Great for explanations and summaries.
+
+    ## 2. Notion AI
+    Excellent for notes and organization.
+
+    ## 3. Perplexity AI
+    Best for research and citations.
+
+    Students can save hours every week using these tools.
+  `,
+},
+
+'midjourney-beginners-guide': {
+  title: 'Midjourney Beginners Guide: Create AI Images',
+  description: 'A step by step guide for complete beginners using Midjourney.',
+  category: 'Image',
+  date: 'March 2025',
+  readTime: '8 min read',
+  content: `
+    Midjourney is one of the most powerful AI image generators available today.
+
+    ## Step 1
+    Join the Midjourney Discord server.
+
+    ## Step 2
+    Use the /imagine command.
+
+    ## Step 3
+    Write detailed prompts for better results.
+
+    ## Step 4
+    Upscale your favorite generations.
+
+    Practice prompt engineering consistently.
+  `,
+},
+
+'ai-tools-for-business': {
+  title: 'Top AI Tools for Small Business Owners',
+  description: 'Save time and money running your business using AI tools.',
+  category: 'Business',
+  date: 'March 2025',
+  readTime: '6 min read',
+  content: `
+    AI tools can automate repetitive tasks and increase productivity.
+
+    ## 1. ChatGPT
+    Customer support and content writing.
+
+    ## 2. Jasper
+    Marketing and copywriting.
+
+    ## 3. Notion AI
+    Team collaboration and documentation.
+
+    ## 4. HubSpot AI
+    CRM and marketing automation.
+
+    Small businesses can scale much faster with AI.
+  `,
+},
   'chatgpt-vs-claude': {
     title: 'ChatGPT vs Claude: Which AI is Better?',
     description: 'An honest side by side comparison of ChatGPT and Claude.',
