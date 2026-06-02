@@ -13,13 +13,11 @@ export const metadata: Metadata = {
       { url: '/icon.png', sizes: '512x512', type: 'image/png' },
     ],
     apple: '/apple-icon.png',
+  },
 
-
-  // rest of your metadata...
-},
   title: {
     default: 'AI Tools Directory - Find The Best AI Tools',
-    template: '%s | AI Tools Directory',
+    template: '%s | AI Shelve',
   },
 
   description:
@@ -35,11 +33,14 @@ export const metadata: Metadata = {
     'AI coding tools',
     'ChatGPT alternatives',
     'AI productivity tools',
+    'AI software directory',
+    'free AI tools',
+    'Midjourney alternatives',
   ],
 
-  authors: [{ name: 'AI Tools Directory' }],
-
-  creator: 'AI Tools Directory',
+  authors: [{ name: 'AI Shelve' }],
+  creator: 'AI Shelve',
+  publisher: 'AI Shelve',
 
   verification: {
     google: '28PxnAniJ5rJ041ay4W_KUihvrHsjOhHbnVqMVv55mA',
@@ -49,17 +50,26 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://aishelve.com',
-    siteName: 'AI Tools Directory',
-    title: 'AI Tools Directory - Find The Best AI Tools',
+    siteName: 'AI Shelve',
+    title: 'AI Shelve - Best AI Tools Directory',
     description:
-      'Browse hundreds of AI tools for writing, image generation, coding, video, audio and more.',
+      'Discover and compare the best AI tools for writing, coding, image generation, productivity and more. Curated daily.',
+    images: [
+      {
+        url: '/og/home.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'AI Shelve - Best AI Tools Directory',
+      },
+    ],
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Tools Directory - Find The Best AI Tools',
+    title: 'AI Shelve - Best AI Tools Directory',
     description:
       'Browse hundreds of AI tools for writing, image generation, coding, video, audio and more.',
+    images: ['/og/home.jpg'],
   },
 
   robots: {
@@ -68,7 +78,13 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
     },
+  },
+
+  alternates: {
+    canonical: 'https://aishelve.com',
   },
 }
 
@@ -79,9 +95,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-[#080810] text-white antialiased min-h-screen">
+      <body className="bg-[#080810] text-white antialiased min-h-screen flex flex-col">
         <Navbar />
-        {children}
+        <main className="flex-1">
+          {children}
+        </main>
         <Footer />
         <Analytics />
       </body>
