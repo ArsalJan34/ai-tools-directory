@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-
+export const dynamic = 'force-dynamic'
 export default function SearchBar() {
   const [query, setQuery] = useState('')
   const router = useRouter()
