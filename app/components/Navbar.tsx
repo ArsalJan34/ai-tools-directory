@@ -23,18 +23,14 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <Link href="/" className="flex items-center gap-2 group">
-  <Image
-    src="/logo.png"
-    alt="aishelve logo"
-    width={40}
-    height={40}
-    className="rounded-lg"
-  />
+          <Image
+            src="/logo.png"
+            alt="aishelve logo"
+            width={40}
+            height={40}
+            className="rounded-lg"
+          />
 
-  <span className="text-white font-bold text-lg tracking-tight">
-  </span>
-</Link>
           <span className="text-white font-bold text-lg tracking-tight">
             ai<span className="text-violet-400">shelve</span>
           </span>

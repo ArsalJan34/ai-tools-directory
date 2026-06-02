@@ -2,6 +2,9 @@ import Link from 'next/link'
 import { supabase } from '../lib/supabase'
 import type { Metadata } from 'next'
 
+// 🔥 Added this to fix deleted tools still showing (forces fresh data from Supabase)
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'All AI Tools',
   description:

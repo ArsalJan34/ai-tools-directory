@@ -2,6 +2,9 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 
+// 🔥 This is a Client Component. Data is fetched on client-side so it should stay fresh.
+// Make sure to hard refresh (Ctrl + Shift + R) after deleting tools.
+
 export default function AdminToolsPage() {
   const [tools, setTools] = useState<any[]>([])
   const [categories, setCategories] = useState<any[]>([])

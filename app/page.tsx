@@ -2,6 +2,9 @@ import Link from 'next/link'
 import { supabase } from './lib/supabase'
 import SearchBar from './components/SearchBar'
 
+// 🔥 Force fresh data on every request (fixes deleted tools still showing)
+export const dynamic = 'force-dynamic'
+
 async function getFeaturedTools() {
   const { data } = await supabase
     .from('tools')
