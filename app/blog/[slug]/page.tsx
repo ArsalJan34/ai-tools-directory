@@ -482,9 +482,10 @@ const posts: Record<string, any> = {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }): Promise<Metadata> {
-  const post = posts[params.slug]
+  const { slug } = await params
+  const post = posts[slug]
   if (!post) return { title: 'Post Not Found' }
   return {
     title: post.title,
@@ -492,12 +493,13 @@ export async function generateMetadata({
   }
 }
 
-export default function BlogPostPage({
+export default async function BlogPostPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
-  const post = posts[params.slug]
+  const { slug } = await params
+  const post = posts[slug]
 
   if (!post) {
     notFound()
