@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { supabase } from '../lib/supabase'
+import { supabase } from '@/lib/supabase'
 import type { Metadata } from 'next'
 
 // 🔥 Added this to fix deleted tools still showing (forces fresh data from Supabase)
@@ -115,7 +115,7 @@ export default async function ToolsPage({
                       <img src={tool.logo_url} alt={tool.name} className="w-12 h-12 rounded-xl object-contain bg-white p-1 shrink-0" />
                     ) : (
                       <img
-                        src={`https://www.google.com/s2/favicons?domain=${tool.url ? new URL(tool.url).hostname : 'example.com'}&sz=64`}
+                        src={`https://www.google.com/s2/favicons?domain=${(() => { try { return new URL(tool.url).hostname } catch { return 'example.com' } })()}&sz=64`}
                         alt={tool.name}
                         className="w-12 h-12 rounded-xl object-cover bg-white/10 shrink-0"
                       />

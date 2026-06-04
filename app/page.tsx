@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { supabase } from './lib/supabase'
+import { supabase } from '@/lib/supabase'
 import SearchBar from './components/SearchBar'
 
 // 🔥 Force fresh data on every request (fixes deleted tools still showing)

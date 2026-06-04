@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { supabase } from '../../lib/supabase'
+import { supabase } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
 
 // 🔥 Added this to fix deleted tools still showing (forces fresh data from Supabase)

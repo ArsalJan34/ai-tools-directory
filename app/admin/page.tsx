@@ -1,4 +1,4 @@
-import { supabase } from '../lib/supabase'
+import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
 
 async function getStats() {

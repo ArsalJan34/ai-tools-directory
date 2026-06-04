@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { supabase } from '../lib/supabase'
+import { supabase } from '@/lib/supabase'
 
 export const metadata: Metadata = {
   title: 'AI Tools by Category',
