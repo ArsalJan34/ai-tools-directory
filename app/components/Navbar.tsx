@@ -30,7 +30,6 @@ export default function Navbar() {
             height={40}
             className="rounded-lg"
           />
-
           <span className="text-white font-bold text-lg tracking-tight">
             ai<span className="text-violet-400">shelve</span>
           </span>
@@ -49,6 +48,9 @@ export default function Navbar() {
           </Link>
           <Link href="/advertise" className="text-gray-400 hover:text-white hover:bg-white/5 px-4 py-2 rounded-lg transition-all text-sm font-medium">
             Advertise
+          </Link>
+          <Link href="/contact" className="text-gray-400 hover:text-white hover:bg-white/5 px-4 py-2 rounded-lg transition-all text-sm font-medium">
+            Contact
           </Link>
         </div>
 
@@ -78,6 +80,7 @@ export default function Navbar() {
           <Link href="/categories" className="text-gray-400 hover:text-white px-4 py-3 rounded-lg hover:bg-white/5 transition-all text-sm">Categories</Link>
           <Link href="/blog" className="text-gray-400 hover:text-white px-4 py-3 rounded-lg hover:bg-white/5 transition-all text-sm">Blog</Link>
           <Link href="/advertise" className="text-gray-400 hover:text-white px-4 py-3 rounded-lg hover:bg-white/5 transition-all text-sm">Advertise</Link>
+          <Link href="/contact" className="text-gray-400 hover:text-white px-4 py-3 rounded-lg hover:bg-white/5 transition-all text-sm">Contact</Link>
           <Link href="/submit" className="bg-gradient-to-r from-violet-600 to-blue-600 text-white px-4 py-3 rounded-lg text-sm font-semibold text-center mt-2">+ Submit Tool</Link>
         </div>
       )}
