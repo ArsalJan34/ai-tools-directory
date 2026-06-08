@@ -357,21 +357,107 @@ The students who thrive in 2025 will be the ones who learn to use AI tools effec
   date: 'March 2025',
   readTime: '8 min read',
   content: `
-    Midjourney is one of the most powerful AI image generators available today.
+    Artificial intelligence has made it possible for anyone regardless of artistic skill to create stunning, professional-quality images. Midjourney is the most powerful and popular AI image generation tool available today, used by graphic designers, marketers, game developers, filmmakers, and hobbyists alike. This step-by-step beginners guide will take you from zero to creating beautiful AI-generated images, covering everything from setup to advanced prompt techniques.
 
-    ## Step 1
-    Join the Midjourney Discord server.
+What Is Midjourney?
 
-    ## Step 2
-    Use the /imagine command.
+Midjourney is an AI image generation tool developed by an independent research lab called Midjourney, Inc. Unlike some competitors, Midjourney does not have a standalone web app it operates primarily through Discord, a popular chat platform. You type a text description (called a "prompt") into a Discord channel, and Midjourney generates four image variations based on your description within about a minute.
 
-    ## Step 3
-    Write detailed prompts for better results.
+In 2025, Midjourney has rolled out a direct web interface at midjourney.com, making it accessible without Discord for many users. But the Discord workflow remains popular and is worth knowing.
 
-    ## Step 4
-    Upscale your favorite generations.
+Getting Started: Step-by-Step Setup
 
-    Practice prompt engineering consistently.
+Step 1: Create a Discord Account
+If you do not already have one, go to discord.com and create a free account. Discord works in your browser or via a desktop/mobile app.
+
+Step 2: Join the Midjourney Server
+Go to midjourney.com and click "Join the Beta." This will invite you to the official Midjourney Discord server. Accept the invite.
+
+Step 3: Subscribe to a Plan
+Midjourney is no longer free (the free trial ended in 2023). You need to subscribe before generating images. Plans start at $10/month for the Basic plan.
+
+Step 4: Start Generating
+In any of the #newbies channels (or in Midjourney's direct message bot), type:
+
+/imagine prompt: a golden retriever puppy playing in autumn leaves, warm lighting, photorealistic
+
+Press Enter and wait approximately 60 seconds for four image variations.
+
+Understanding Your Results
+
+After generation, you will see four images in a 2x2 grid. Below the images are buttons:
+
+- U1, U2, U3, U4 : Upscale the selected image (higher resolution)
+- V1, V2, V3, V4 : Create variations of the selected image
+- 🔄 : Regenerate all four images with the same prompt
+
+Click U2 to upscale the second image, for example, or V3 to generate four new variations based on the third image's style.
+
+Writing Effective Prompts
+
+The quality of your Midjourney images depends almost entirely on the quality of your prompts. Here is a framework that works:
+
+Basic Prompt Structure:
+[Subject] [Style/Medium] [Lighting] [Mood/Atmosphere] [Camera/Composition]
+
+Examples
+
+Weak prompt: a woman in a forest
+
+Strong prompt: a young woman with long auburn hair standing in an ancient misty forest, ethereal golden hour light filtering through the trees, photorealistic, 85mm portrait lens, cinematic mood
+
+Key Elements to Include
+
+- Subject: What or who is in the image (be specific)
+- Style: Photorealistic, oil painting, watercolour, anime, 3D render, etc.
+- Lighting: Golden hour, studio lighting, neon, candlelight, etc.
+- Mood: Dramatic, peaceful, mysterious, joyful
+- Technical details: Lens type, camera model, aspect ratio
+
+Useful Midjourney Parameters
+
+You can add parameters to the end of your prompts to fine-tune results:
+
+--ar 16:9 → Sets aspect ratio (Wide landscape format)
+--ar 9:16 → Vertical format (Mobile wallpaper or portrait)
+--v 6 → Uses Midjourney v6 (latest) - Best overall quality
+--style raw → Less opinionated output (More literal prompt following)
+--no text → Removes text from image
+--q 2 → Higher quality rendering (Slower but more detailed)
+--seed 12345 → Repeatable results (Same seed = similar images)
+
+Example with Parameters:
+
+/imagine prompt: minimalist logo design for a coffee brand, flat vector art, warm brown tones --ar 1:1 --v 6 --style raw
+
+Style Modifiers That Work Well
+
+- cinematic — dramatic, film-like quality
+- 4K, 8K — high detail
+- photorealistic — lifelike photography
+- trending on ArtStation — artistic, professional look
+- by [artist name] — mimics a specific art style
+- volumetric lighting — dramatic light rays
+- concept art — game/film industry style
+- hyper-detailed — intricate detail
+
+Common Beginner Mistakes to Avoid
+
+1. Too vague: "A nice picture of a city" will produce generic results. Be specific about time of day, city style, weather, mood.
+2. Too many conflicting ideas: Trying to pack too much into one prompt confuses the model.
+3. Forgetting aspect ratio: Default is square (1:1). For backgrounds, use 16:9. For portraits, use 2:3.
+4. Not iterating: If the first result is not quite right, use the V buttons to generate variations and refine from there.
+
+Pro Tips for Better Results
+
+1. Use image prompts: Add an image URL before your text prompt to influence the style Midjourney will blend your image reference with your text.
+2. Use /describe: Upload any image and Midjourney will write a prompt that could have created it great for reverse-engineering styles.
+3. Explore the community feed: The Midjourney website has a public gallery of all user creations. Search by keyword to see what prompts produce what results.
+4. Build a prompt library: Save prompts that work well for future use. Minor variations on a good prompt are often more effective than starting from scratch.
+
+Conclusion
+
+Midjourney is one of the most creative and powerful tools available to anyone with a computer and an internet connection. In 2025, the quality of AI-generated imagery has reached a point where results are genuinely indistinguishable from professional photography and illustration in many cases. The learning curve is gentle start with simple prompts, study the results, refine your language, and within a few sessions you will be creating images that would have taken professional artists hours to produce.
   `,
 },
 
