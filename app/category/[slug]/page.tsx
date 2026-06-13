@@ -48,8 +48,16 @@ export default async function CategoryPage({
 
       <div className="bg-white/5 border border-white/10 rounded-2xl p-8 mt-4 mb-10">
         <div className="flex items-center gap-5">
-          <div className="w-16 h-16 bg-purple-600/30 rounded-2xl flex items-center justify-center text-4xl">
-            {category.icon}
+          {/* ✅ CHANGED: emoji removed, now uses icon_url from Supabase */}
+          <div className="w-16 h-16 bg-purple-600/30 rounded-2xl flex items-center justify-center overflow-hidden">
+            <img
+              src={category.icon_url || 'https://img.icons8.com/fluency/48/artificial-intelligence.png'}
+              alt={category.name}
+              className="w-10 h-10 object-contain"
+              onError={(e: any) => {
+                e.target.src = 'https://img.icons8.com/fluency/48/artificial-intelligence.png'
+              }}
+            />
           </div>
           <div>
             <h1 className="text-3xl font-bold text-white mb-2">
@@ -85,7 +93,15 @@ export default async function CategoryPage({
                       : 'text-gray-400 hover:text-white'
                   }`}
                 >
-                  <span>{cat.icon}</span>
+                  {/* ✅ CHANGED: emoji removed, now uses icon_url from Supabase */}
+                  <img
+                    src={cat.icon_url || 'https://img.icons8.com/fluency/48/artificial-intelligence.png'}
+                    alt={cat.name}
+                    className="w-4 h-4 object-contain rounded"
+                    onError={(e: any) => {
+                      e.target.src = 'https://img.icons8.com/fluency/48/artificial-intelligence.png'
+                    }}
+                  />
                   <span>{cat.name}</span>
                 </Link>
               ))}
@@ -116,11 +132,23 @@ export default async function CategoryPage({
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      {tool.logo_url ? (
-  <img src={tool.logo_url} alt={tool.name} className="w-10 h-10 rounded-lg object-contain bg-white p-1" />
-) : (
-  <img src={`https://www.google.com/s2/favicons?domain=${tool.url ? new URL(tool.url).hostname : 'example.com'}&sz=64`} alt={tool.name} className="w-10 h-10 rounded-lg object-cover bg-white/10" />
-)}
+                      {/* ✅ CHANGED: logo_url → Clearbit → Google Favicon fallback chain */}
+                      <img
+                        src={
+                          tool.logo_url
+                            ? tool.logo_url
+                            : tool.url
+                            ? `https://logo.clearbit.com/${new URL(tool.url).hostname}`
+                            : 'https://img.icons8.com/fluency/48/artificial-intelligence.png'
+                        }
+                        alt={tool.name}
+                        className="w-10 h-10 rounded-lg object-contain bg-white p-1"
+                        onError={(e: any) => {
+                          e.target.src = tool.url
+                            ? `https://www.google.com/s2/favicons?domain=${tool.url}&sz=64`
+                            : 'https://img.icons8.com/fluency/48/artificial-intelligence.png'
+                        }}
+                      />
                       <div>
                         <h3 className="text-white font-semibold">{tool.name}</h3>
                         <span className="text-xs text-gray-500 capitalize">
