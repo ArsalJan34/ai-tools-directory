@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic'
 async function getFeaturedTools() {
   const { data } = await supabase
     .from('tools')
-    .select('*, categories(name, slug, icon)')
+    .select('*, categories(name, slug, icon_url)')
     .eq('is_featured', true)
     .order('created_at', { ascending: false })
     .limit(6)
@@ -18,7 +18,7 @@ async function getFeaturedTools() {
 async function getNewTools() {
   const { data } = await supabase
     .from('tools')
-    .select('*, categories(name, slug, icon)')
+    .select('*, categories(name, slug, icon_url)')
     .eq('is_new', true)
     .order('created_at', { ascending: false })
     .limit(6)

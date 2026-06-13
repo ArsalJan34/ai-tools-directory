@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
+import FallbackImage from '../../components/FallbackImage'
 
-// 🔥 Added this to fix deleted tools still showing (forces fresh data from Supabase)
 export const dynamic = 'force-dynamic'
+
+const AI_ICON = 'https://img.icons8.com/fluency/48/artificial-intelligence.png'
 
 export default async function CategoryPage({
   params,
@@ -48,15 +50,12 @@ export default async function CategoryPage({
 
       <div className="bg-white/5 border border-white/10 rounded-2xl p-8 mt-4 mb-10">
         <div className="flex items-center gap-5">
-          {/* ✅ CHANGED: emoji removed, now uses icon_url from Supabase */}
           <div className="w-16 h-16 bg-purple-600/30 rounded-2xl flex items-center justify-center overflow-hidden">
-            <img
-              src={category.icon_url || 'https://img.icons8.com/fluency/48/artificial-intelligence.png'}
+            <FallbackImage
+              src={category.icon_url || AI_ICON}
               alt={category.name}
+              fallback={AI_ICON}
               className="w-10 h-10 object-contain"
-              onError={(e: any) => {
-                e.target.src = 'https://img.icons8.com/fluency/48/artificial-intelligence.png'
-              }}
             />
           </div>
           <div>
@@ -93,14 +92,11 @@ export default async function CategoryPage({
                       : 'text-gray-400 hover:text-white'
                   }`}
                 >
-                  {/* ✅ CHANGED: emoji removed, now uses icon_url from Supabase */}
-                  <img
-                    src={cat.icon_url || 'https://img.icons8.com/fluency/48/artificial-intelligence.png'}
+                  <FallbackImage
+                    src={cat.icon_url || AI_ICON}
                     alt={cat.name}
+                    fallback={AI_ICON}
                     className="w-4 h-4 object-contain rounded"
-                    onError={(e: any) => {
-                      e.target.src = 'https://img.icons8.com/fluency/48/artificial-intelligence.png'
-                    }}
                   />
                   <span>{cat.name}</span>
                 </Link>
@@ -132,22 +128,21 @@ export default async function CategoryPage({
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      {/* ✅ CHANGED: logo_url → Clearbit → Google Favicon fallback chain */}
-                      <img
+                      <FallbackImage
                         src={
                           tool.logo_url
                             ? tool.logo_url
                             : tool.url
                             ? `https://logo.clearbit.com/${new URL(tool.url).hostname}`
-                            : 'https://img.icons8.com/fluency/48/artificial-intelligence.png'
+                            : AI_ICON
                         }
                         alt={tool.name}
-                        className="w-10 h-10 rounded-lg object-contain bg-white p-1"
-                        onError={(e: any) => {
-                          e.target.src = tool.url
+                        fallback={
+                          tool.url
                             ? `https://www.google.com/s2/favicons?domain=${tool.url}&sz=64`
-                            : 'https://img.icons8.com/fluency/48/artificial-intelligence.png'
-                        }}
+                            : AI_ICON
+                        }
+                        className="w-10 h-10 rounded-lg object-contain bg-white p-1"
                       />
                       <div>
                         <h3 className="text-white font-semibold">{tool.name}</h3>

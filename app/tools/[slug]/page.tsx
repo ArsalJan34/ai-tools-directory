@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 async function getTool(slug: string) {
   const { data } = await supabase
     .from('tools')
-    .select('*, categories(name, slug, icon)')
+    .select('*, categories(name, slug, icon_url)')
     .eq('slug', slug)
     .single()
   return data

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 async function getTools(search?: string) {
   let query = supabase
     .from('tools')
-    .select('*, categories(name, slug, icon)')
+    .select('*, categories(name, slug, icon_url)')
     .order('created_at', { ascending: false })
 
   if (search) {
